@@ -8,4 +8,9 @@ When starting, you can run `rusty_weather --setup` to be walked through adding y
 
 Once configured, you can run without flags to get a display of the current weather for your configured area. If you want to see another area, just add the `--zip` flag with a zip code argument: `rusty_weather -- --zip 12345`
 
-![image](https://github.com/user-attachments/assets/7eb3f9e4-b877-4d23-af4e-52812dded9c6)
+```
+    .-.     | Temperature: 19.29
+ .-(   ).   | Min: 20.21
+(________)  | Max: 0
+Schenectady | Wind Speed: 17.27
+```
