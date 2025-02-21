@@ -27,7 +27,7 @@ struct Config {
     units: String,
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn Error>> {
     let args: Args = Args::parse();
     let config_path = "config.yaml";
 
@@ -116,7 +116,7 @@ fn prompt_update(prompt: &str, current: &str) -> String {
 
 
 /// Saves the configuration to a YAML file
-fn save_config(config: &Config, path: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn save_config(config: &Config, path: &str) -> Result<(), Box<dyn Error>> {
     let yaml_string = serde_yaml::to_string(config)?;
     let mut file = OpenOptions::new()
         .write(true)
@@ -127,7 +127,7 @@ fn save_config(config: &Config, path: &str) -> Result<(), Box<dyn std::error::Er
     Ok(())
 }
 
-fn get_lat_long(zip_code: &str, api_key: &str) -> Result<(f64, f64), Box<dyn std::error::Error>> {
+fn get_lat_long(zip_code: &str, api_key: &str) -> Result<(f64, f64), Box<dyn Error>> {
     let url = format!(
         "https://api.openweathermap.org/data/2.5/weather?zip={}&appid={}",
         zip_code, api_key
