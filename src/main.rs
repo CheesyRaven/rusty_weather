@@ -161,7 +161,7 @@ fn print_weather_info(json: &Value) {
     let city = json["name"].as_str().unwrap_or("Unknown");
     let temp = json["main"]["temp"].as_f64().unwrap_or(0.0);
     let temp_max = json["main"]["temp_max"].as_f64().unwrap_or(0.0);
-    let temp_min = json["weather"][0]["temp_min"].as_f64().unwrap_or(0.0);
+    let temp_min = json["main"]["temp_min"].as_f64().unwrap_or(0.0);
     let wind_speed = json["wind"]["speed"].as_f64().unwrap_or(0.0);
     let description = json["weather"][0]["main"].as_str().unwrap_or("Unknown");
 
