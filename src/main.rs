@@ -1,3 +1,4 @@
+use std::cmp;
 use std::collections::HashMap;
 use std::error::Error;
 use serde_json::{Value};
@@ -165,22 +166,18 @@ fn print_weather_info(json: &Value) {
     let description = json["weather"][0]["main"].as_str().unwrap_or("Unknown");
 
     // Define ASCII Art HashMap
-    let mut weather_art: HashMap<&str, Vec<&str>> = HashMap::new();
-    weather_art.insert("Clear", vec![" \\ | / ", "- ( ) -", " / | \\ ", "       "]);
-    weather_art.insert("Clouds", vec!["    .-.   ", " .-(   ). ", "(________)", "          "]);
-    weather_art.insert("Rain", vec!["\' \'\' \'", " \' \'\' ", "\'\'  \' ", "      "]);
-    weather_art.insert("Snow", vec!["*  * *", " *  * ", "* *  *", "      "]);
+    let weather_art: HashMap<&str, Vec<&str>> = HashMap::from([
+        ("Clear", vec![" \\ | / ", "- ( ) -", " / | \\ ", "       "]),
+        ("Clouds", vec!["    .-.   ", " .-(   ). ", "(________)", "          "]),
+        ("Rain", vec!["' '' '", " ' '' ", "''  ' ", "      "]),
+        ("Snow", vec!["*  * *", " *  * ", "* *  *", "      "]),
+    ]);
 
     // Get ASCII art for the weather condition, or fallback to default
     let binding = vec!["   ", "   ", "   ", "   "];
     let art = weather_art.get(description).unwrap_or(&binding);
 
-    let width;
-    if art[3].len() > city.len() {
-        width = art[3].len();
-    } else {
-        width = city.len();
-    }
+    let width = cmp::max(art[3].len(), city.len());
 
     let city_centered = format!("{:^width$}", city, width = width);
 
